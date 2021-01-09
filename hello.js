@@ -7,12 +7,18 @@ let server = http.createServer()
 server.on('request', (request, response) => {
 
     fs.readFile('hello.html', (err, data) =>{
-        if (err) throw err
+        if (err) {
+            response.writeHead(404)
+            response.end("Ce fichier n'existe pas")
+        }else{
 
-        response.writeHead(200, {
-            'content-type': 'text/html; charset=utf-8'
-        })
-        response.end(data)
+            response.writeHead(200, {
+                'content-type': 'text/html; charset=utf-8'
+            })
+            response.end(data)
+        }
+
+    
     })
     
 
